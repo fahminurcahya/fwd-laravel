@@ -44,7 +44,7 @@
                                 />
 
                                 @if ($errors->has('name'))
-                                    <p class="text-red-500 mb-3 text-sm">{{ $errors->first('name') }}</p>
+                                    <p class="text-red-500 mb-3 text-sm" style="color: red">{{ $errors->first('name') }}</p>
                                 @endif
                             </label>
 
@@ -56,7 +56,7 @@
                                 />
 
                                 @if ($errors->has('email'))
-                                    <p class="text-red-500 mb-3 text-sm">{{ $errors->first('email') }}</p>
+                                    <p class="text-red-500 mb-3 text-sm" style="color: red">{{ $errors->first('email') }}</p>
                                 @endif
                             </label>
 
@@ -76,7 +76,7 @@
                                 />
 
                                 @if ($errors->has('password'))
-                                    <p class="text-red-500 mb-3 text-sm">{{ $errors->first('password') }}</p>
+                                    <p class="text-red-500 mb-3 text-sm" style="color: red">{{ $errors->first('password') }}</p>
                                 @endif
                             </label>
 

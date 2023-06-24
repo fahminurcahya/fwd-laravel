@@ -1,12 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Frontsite;
+namespace App\Http\Controllers\Backsite;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class RegisterController extends Controller
+// use library here
+use Symfony\Component\HttpFoundation\Response;
+
+// use everything here
+use Auth;
+use Illuminate\Auth\Access\Gate;
+
+class DashboardController extends Controller
 {
+
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +33,9 @@ class RegisterController extends Controller
      */
     public function index()
     {
-        return view('pages.frontsite.success.signup-success');
+        // abort_if(Gate::denies('dashboard_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('pages.backsite.dashboard.index');
     }
 
     /**

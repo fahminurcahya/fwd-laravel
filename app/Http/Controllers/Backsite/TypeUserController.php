@@ -1,12 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Frontsite;
+namespace App\Http\Controllers\Backsite;
 
 use App\Http\Controllers\Controller;
+use App\Models\MasterData\TypeUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
-class RegisterController extends Controller
+class TypeUserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,11 @@ class RegisterController extends Controller
      */
     public function index()
     {
-        return view('pages.frontsite.success.signup-success');
+        abort_if(Gate::denies('type_user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $type_user = TypeUser::all();
+
+        return view('pages.backsite.management-access.type-user.index', compact('type_user'));
     }
 
     /**
