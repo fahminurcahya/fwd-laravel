@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Backsite;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Consultation\StoreConsultationRequest;
+use App\Http\Requests\Consultation\UpdateConsultationRequest;
+use App\Models\MasterData\Consultation;
 use Illuminate\Http\Request;
 
 class ConsultationController extends Controller
@@ -19,7 +22,9 @@ class ConsultationController extends Controller
      */
     public function index()
     {
-        return view('pages.backsite.master-data.consultation.index');
+        $consultation = Consultation::orderBy('created_at', 'desc')->get();
+
+        return view('pages.backsite.master-data.consultation.index', compact('consultation'));
     }
 
     /**
@@ -29,7 +34,7 @@ class ConsultationController extends Controller
      */
     public function create()
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -38,9 +43,16 @@ class ConsultationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreConsultationRequest $request)
     {
-        //
+        // get all request from frontsite
+        $data = $request->all();
+
+        // store to database
+        $consultation = Consultation::create($data);
+
+        alert()->success('Success Message', 'Successfully added new consultation');
+        return redirect()->route('backsite.consultation.index');
     }
 
     /**
@@ -49,9 +61,9 @@ class ConsultationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Consultation $consultation)
     {
-        //
+        return view('pages.backsite.master-data.consultation.show', compact('consultation'));
     }
 
     /**
@@ -60,9 +72,9 @@ class ConsultationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Consultation $consultation)
     {
-        //
+        return view('pages.backsite.master-data.consultation.edit', compact('consultation'));
     }
 
     /**
@@ -72,9 +84,16 @@ class ConsultationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateConsultationRequest $request, Consultation $consultation)
     {
-        //
+        // get all request from frontsite
+        $data = $request->all();
+
+        // update to database
+        $consultation->update($data);
+
+        alert()->success('Success Message', 'Successfully updated consultation');
+        return redirect()->route('backsite.consultation.index');
     }
 
     /**
@@ -83,8 +102,12 @@ class ConsultationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Consultation $consultation)
     {
-        //
+
+        $consultation->forceDelete();
+
+        alert()->success('Success Message', 'Successfully deleted consultation');
+        return back();
     }
 }
