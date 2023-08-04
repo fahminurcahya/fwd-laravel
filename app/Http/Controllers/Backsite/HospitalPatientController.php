@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backsite;
 
 use App\Http\Controllers\Controller;
+use App\Models\ManagementAccess\DetailUser;
 use Illuminate\Http\Request;
 
 class HospitalPatientController extends Controller
@@ -18,7 +19,8 @@ class HospitalPatientController extends Controller
      */
     public function index()
     {
-        return view('pages.backsite.operational.hospital-patient.index');
+        $patient = DetailUser::where('type_user_id', 3)->orderBy('created_at', 'desc')->get();
+        return view('pages.backsite.operational.hospital-patient.index', compact(('patient')));
     }
 
     /**

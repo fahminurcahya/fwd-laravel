@@ -6,6 +6,8 @@ use App\Http\Controllers\Backsite\DashboardController;
 use App\Http\Controllers\Backsite\DoctorController;
 use App\Http\Controllers\Backsite\HospitalPatientController;
 use App\Http\Controllers\Backsite\PermissionController;
+use App\Http\Controllers\Backsite\ReportAppointmentController;
+use App\Http\Controllers\Backsite\ReportTransactionController;
 use App\Http\Controllers\Backsite\RoleController;
 use App\Http\Controllers\Backsite\SpecialistController;
 use App\Http\Controllers\Backsite\TypeUserController;
